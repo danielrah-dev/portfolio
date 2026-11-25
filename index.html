@@ -1,558 +1,193 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daniel Raheriniaina — Frontend & Database Developer</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daniel Raheriniaina — Développeur web et logiciels</title>
+<meta name="description" content="Étudiant en L3 Informatique à l’ÉMIT (Fianarantsoa). Je construis des logiciels de gestion : hôtel, école, boutique, stock, bibliothèque, application mobile.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --navy-deep:#0A1628;
-    --navy-panel:#0F2038;
-    --navy-line:#1E3A5C;
-    --paper:#E8F1F8;
-    --paper-dim:#8AA2BC;
-    --amber:#FFB454;
-    --amber-dim:#C98A3A;
-    --ok:#5DCAA5;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--navy-deep);
-    color:var(--paper);
-    font-family:'Inter',sans-serif;
-    background-image:
-      linear-gradient(var(--navy-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--navy-line) 1px, transparent 1px);
-    background-size:32px 32px;
-    background-position:-1px -1px;
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
-  }
-  a{color:var(--amber);}
-  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
-  .fig{
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px;
-    letter-spacing:0.12em;
-    color:var(--amber-dim);
-    text-transform:uppercase;
-    margin:0 0 12px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .fig::after{content:'';flex:1;height:1px;background:var(--navy-line);}
-
-  header.nav{
-    position:sticky;top:0;z-index:10;
-    background:rgba(10,22,40,0.92);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--navy-line);
-  }
-  .nav-inner{
-    max-width:960px;margin:0 auto;padding:16px 24px;
-    display:flex;align-items:center;justify-content:space-between;
-  }
-  .nav-name{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--paper);text-decoration:none;font-size:15px;}
-  .nav-links{display:flex;gap:24px;list-style:none;margin:0;padding:0;}
-  .nav-links a{color:var(--paper-dim);text-decoration:none;font-size:14px;font-family:'JetBrains Mono',monospace;}
-  .nav-links a:hover{color:var(--amber);}
-  .badge{
-    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ok);
-    border:1px solid var(--ok);border-radius:2px;padding:3px 8px;
-    display:inline-flex;align-items:center;gap:6px;
-  }
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-
-  section{padding:80px 0;}
-  .hero{padding-top:64px;}
-  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
-  @media (max-width:760px){.hero-grid{grid-template-columns:1fr;}}
-
-  h1.title{
-    font-family:'JetBrains Mono',monospace;
-    font-size:clamp(28px,5vw,44px);
-    line-height:1.2;font-weight:700;margin:0 0 16px;color:var(--paper);
-  }
-  .accent{color:var(--amber);}
-  .lede{color:var(--paper-dim);font-size:17px;line-height:1.7;max-width:46ch;margin:0 0 28px;}
-  .cta-row{display:flex;gap:12px;flex-wrap:wrap;}
-  .btn{
-    font-family:'JetBrains Mono',monospace;font-size:13px;
-    padding:12px 20px;border-radius:2px;text-decoration:none;
-    border:1px solid var(--navy-line);color:var(--paper);
-    transition:border-color 0.15s, color 0.15s;
-  }
-  .btn:hover{border-color:var(--amber);color:var(--amber);}
-  .btn.primary{background:var(--amber);color:var(--navy-deep);border-color:var(--amber);font-weight:700;}
-  .btn.primary:hover{color:var(--navy-deep);opacity:0.9;}
-
-  .code-window{
-    background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:6px;overflow:hidden;
-  }
-  .code-bar{
-    display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--navy-line);
-  }
-  .code-bar span{width:9px;height:9px;border-radius:50%;background:var(--navy-line);}
-  .code-body{padding:18px 20px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;min-height:130px;color:var(--ok);white-space:pre-wrap;word-break:break-word;}
-  .cursor-blink{display:inline-block;width:7px;height:15px;background:var(--amber);animation:blink 1s step-end infinite;vertical-align:middle;margin-left:2px;}
-  @keyframes blink{50%{opacity:0;}}
-  .preview-box{
-    margin-top:14px;background:var(--paper);color:#0A1628;border-radius:6px;padding:20px;font-family:'Inter',sans-serif;min-height:70px;
-  }
-  .preview-box .ptitle{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#5F5E5A;margin-bottom:8px;font-family:'JetBrains Mono',monospace;}
-
-  .skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-  @media (max-width:760px){.skills-grid{grid-template-columns:repeat(2,1fr);}}
-  @media (max-width:460px){.skills-grid{grid-template-columns:1fr;}}
-  .skill-card{
-    border:1px solid var(--navy-line);border-radius:6px;padding:20px;background:var(--navy-panel);
-  }
-  .skill-card .name{font-family:'JetBrains Mono',monospace;font-weight:700;margin:0 0 10px;color:var(--paper);}
-  .bar-track{height:5px;background:var(--navy-line);border-radius:4px;overflow:hidden;margin-bottom:6px;}
-  .bar-fill{height:100%;background:var(--amber);border-radius:4px;}
-  .skill-note{font-size:12px;color:var(--paper-dim);}
-
-  .about-text{color:var(--paper-dim);font-size:16px;line-height:1.8;max-width:70ch;}
-  .about-text strong{color:var(--paper);}
-
-  .project-panel{
-    border:1px solid var(--navy-line);border-radius:6px;background:var(--navy-panel);
-    margin-bottom:28px;overflow:hidden;
-  }
-  .project-head{
-    padding:16px 20px;border-bottom:1px solid var(--navy-line);
-    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
-  }
-  .project-head h3{margin:0;font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--paper);}
-  .project-tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber-dim);border:1px solid var(--navy-line);padding:2px 8px;border-radius:2px;}
-  .project-body{padding:24px 20px;}
-
-  /* Calculator */
-  .calc{max-width:280px;margin:0 auto;background:var(--navy-deep);border:1px solid var(--navy-line);border-radius:6px;overflow:hidden;}
-  .calc-screen{padding:18px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:26px;color:var(--paper);border-bottom:1px solid var(--navy-line);min-height:40px;overflow-x:auto;}
-  .calc-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--navy-line);}
-  .calc-keys button{
-    padding:16px 0;background:var(--navy-panel);color:var(--paper);border:none;font-family:'JetBrains Mono',monospace;font-size:16px;cursor:pointer;
-  }
-  .calc-keys button:hover{background:var(--navy-line);}
-  .calc-keys button.op{color:var(--amber);}
-  .calc-keys button.eq{background:var(--amber);color:var(--navy-deep);font-weight:700;}
-
-  /* Todo */
-  .todo-input-row{display:flex;gap:8px;margin-bottom:16px;}
-  .todo-input-row input{
-    flex:1;padding:10px 12px;background:var(--navy-deep);border:1px solid var(--navy-line);color:var(--paper);
-    border-radius:4px;font-family:'Inter',sans-serif;font-size:14px;
-  }
-  .todo-input-row button{
-    padding:10px 18px;background:var(--amber);color:var(--navy-deep);border:none;border-radius:4px;font-weight:600;cursor:pointer;
-    font-family:'JetBrains Mono',monospace;font-size:13px;
-  }
-  .todo-list{list-style:none;padding:0;margin:0;}
-  .todo-list li{
-    display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--navy-line);font-size:14px;
-  }
-  .todo-list li.done span.txt{text-decoration:line-through;color:var(--paper-dim);}
-  .todo-list li input[type=checkbox]{width:16px;height:16px;accent-color:var(--amber);}
-  .todo-list li .txt{flex:1;}
-  .todo-list li button{background:none;border:none;color:var(--paper-dim);cursor:pointer;font-size:16px;}
-  .todo-list li button:hover{color:#E24B4A;}
-
-  /* Quiz */
-  .quiz-q{font-family:'Inter',sans-serif;font-size:16px;margin-bottom:16px;color:var(--paper);}
-  .quiz-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
-  .quiz-opts button{
-    text-align:left;padding:12px 16px;background:var(--navy-deep);border:1px solid var(--navy-line);
-    color:var(--paper);border-radius:4px;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;
-  }
-  .quiz-opts button:hover{border-color:var(--amber);}
-  .quiz-opts button.correct{border-color:var(--ok);color:var(--ok);}
-  .quiz-opts button.wrong{border-color:#E24B4A;color:#E24B4A;}
-  .quiz-status{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--paper-dim);}
-  .quiz-next{margin-top:14px;}
-
-  /* Database demo */
-  .db-schema{
-    display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;
-  }
-  .db-col{
-    font-family:'JetBrains Mono',monospace;font-size:12px;
-    background:var(--navy-deep);border:1px solid var(--navy-line);border-radius:4px;
-    padding:6px 10px;color:var(--paper-dim);
-  }
-  .db-col b{color:var(--amber);}
-  .db-form{
-    display:grid;grid-template-columns:1fr 1fr 90px auto;gap:8px;margin-bottom:18px;
-  }
-  @media (max-width:600px){.db-form{grid-template-columns:1fr 1fr;}}
-  .db-form input{
-    padding:10px 12px;background:var(--navy-deep);border:1px solid var(--navy-line);color:var(--paper);
-    border-radius:4px;font-family:'Inter',sans-serif;font-size:13px;
-  }
-  .db-form button{
-    padding:10px 14px;background:var(--amber);color:var(--navy-deep);border:none;border-radius:4px;font-weight:600;cursor:pointer;
-    font-family:'JetBrains Mono',monospace;font-size:12px;
-  }
-  .db-search{
-    margin-bottom:14px;
-  }
-  .db-search input{
-    width:100%;padding:10px 12px;background:var(--navy-deep);border:1px solid var(--navy-line);color:var(--paper);
-    border-radius:4px;font-family:'Inter',sans-serif;font-size:13px;
-  }
-  .db-table-wrap{overflow-x:auto;}
-  table.db-table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px;}
-  table.db-table th{
-    text-align:left;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;
-    letter-spacing:0.05em;color:var(--amber-dim);padding:8px 10px;border-bottom:1px solid var(--navy-line);
-  }
-  table.db-table td{padding:9px 10px;border-bottom:1px solid var(--navy-line);color:var(--paper);}
-  table.db-table td.score{color:var(--ok);font-family:'JetBrains Mono',monospace;}
-  table.db-table button{
-    background:none;border:none;color:var(--paper-dim);cursor:pointer;font-size:15px;
-  }
-  table.db-table button:hover{color:#E24B4A;}
-  .db-note{font-size:12px;color:var(--paper-dim);margin-top:14px;line-height:1.6;}
-
-  footer{border-top:1px solid var(--navy-line);padding:40px 0;}
-  .contact-grid{display:flex;gap:24px;flex-wrap:wrap;}
-  .contact-item{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--paper-dim);}
-  .contact-item a{color:var(--amber);}
-  .foot-note{margin-top:24px;font-size:12px;color:var(--paper-dim);}
+:root{
+  --paper:#0A1428; --ink:#E6EDF7; --muted:#8FA3C0; --line:#1E3358;
+  --forest:#0F2142; --on-forest:#EAF1FB; --amber:#FFB454; --row:#101F3A;
+  --head:"Bricolage Grotesque",system-ui,sans-serif; --text:"Figtree",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.05rem/1.65 var(--text)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font:700 1.05rem var(--head);text-decoration:none}
+nav a{margin-left:20px;text-decoration:none;color:var(--muted);font-weight:500}
+nav a:hover{color:var(--ink)}
+.hero{background:var(--forest) linear-gradient(rgba(58,86,136,.28) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(58,86,136,.28) 1px,transparent 1px) 0 0/48px 48px;color:var(--on-forest);padding:64px 0 72px;margin-bottom:56px}
+.hero .wrap{max-width:860px}
+.hero h1{font:700 clamp(2.1rem,6.4vw,3.8rem)/1.06 var(--head);letter-spacing:-.02em;margin:0 0 22px;max-width:15em}
+.hero p{max-width:34em;margin:0 0 28px;color:#B7C6DD;font-size:1.12rem}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:12px 22px;border-radius:999px;font-weight:600;text-decoration:none}
+.btn.main{background:var(--amber);color:#1A1204}
+.btn.alt{border:1.5px solid #3A5688;color:var(--on-forest)}
+section{padding:0 0 56px}
+h2{font:700 1.7rem/1.2 var(--head);letter-spacing:-.01em;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 24px;max-width:36em}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px 28px;margin-top:8px}
+.skills h3{font:700 1rem var(--head);margin:0 0 4px}
+.skills p{margin:0;color:var(--muted)}
+details{border-top:1px solid var(--line)}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:18px 4px;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary .n{font:700 1.3rem var(--head)}
+summary .k{grid-column:1;color:var(--muted)}
+summary .t{grid-row:1/3;grid-column:2;color:var(--muted);font-size:.92rem;text-align:right;max-width:13em}
+summary::after{content:"+";grid-row:1/3;grid-column:3;font:600 1.5rem var(--head);color:var(--amber);align-self:center}
+details[open] summary::after{content:"–"}
+details[open]{background:var(--row)}
+details ul{margin:0;padding:2px 4px 20px 26px;max-width:40em}
+details li{margin-bottom:6px}
+.xp{display:grid;gap:18px}
+.xp h3{font:700 1.1rem var(--head);margin:0}
+.xp .when{color:var(--muted);font-size:.95rem;margin:0 0 4px}
+.xp p{margin:0}
+.contact{background:var(--forest);color:var(--on-forest);padding:52px 0 60px}
+.contact h2{margin-bottom:12px}
+.contact p{margin:0 0 20px;color:#B7C6DD}
+.contact .lines{display:grid;gap:6px;font-size:1.1rem}
+.contact a{color:var(--amber);text-decoration-thickness:2px;text-underline-offset:4px}
+footer{padding:22px 0;color:var(--muted);font-size:.92rem}
+@media (max-width:560px){
+  nav a{margin-left:14px}
+  summary{grid-template-columns:1fr auto}
+  summary .t{grid-row:3;grid-column:1;text-align:left;max-width:none;font-size:.88rem}
+  summary::after{grid-row:1/4;grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-
-<header class="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-name">D. RAHERINIAINA</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+<div class="hero">
+  <div class="wrap">
+    <header class="top" style="padding-top:0;margin-bottom:34px">
+      <a class="logo" href="#">Daniel Raheriniaina</a>
+      <nav><a href="#projets">Projets</a><a href="#parcours">Parcours</a><a href="#contact">Contact</a></nav>
+    </header>
+    <h1>Je construis des logiciels de gestion pour de vrais besoins.</h1>
+    <p>Étudiant en L3 Informatique à l’ÉMIT (Université de Fianarantsoa). Un système de réservation pour un hôtel, un logiciel pour une école, une boutique, un stock d’artisanat : je conçois, je développe et je livre avec un installateur.</p>
+    <div class="btns">
+      <a class="btn main" href="#projets">Voir mes projets</a>
+      <a class="btn alt" href="#contact">Me contacter</a>
+    </div>
   </div>
-</header>
-
-<div class="wrap">
-
-  <section class="hero">
-    <div class="fig">FIG. 01 — INTRODUCTION</div>
-    <div class="hero-grid">
-      <div>
-        <h1 class="title">Building the web,<br><span class="accent">one line at a time.</span></h1>
-        <p class="lede">Daniel Raheriniaina — frontend developer specializing in HTML, CSS, JavaScript, and SQL databases. I build clean, fast, functional websites, small web apps, and data-driven backends for clients worldwide.</p>
-        <div class="badge"><span class="dot"></span> Available for freelance work</div>
-        <div class="cta-row" style="margin-top:24px;">
-          <a href="#projects" class="btn primary">View projects</a>
-          <a href="#contact" class="btn">Get in touch</a>
-        </div>
-      </div>
-      <div>
-        <div class="code-window">
-          <div class="code-bar"><span></span><span></span><span></span></div>
-          <div class="code-body" id="typer"></div>
-        </div>
-        <div class="preview-box">
-          <div class="ptitle">Live preview</div>
-          <div id="previewOut" style="min-height:24px;"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="fig">FIG. 02 — ABOUT</div>
-    <p class="about-text">
-      I'm a self-taught developer based in Madagascar, focused on <strong>HTML, CSS, JavaScript, and SQL databases</strong>.
-      I'm just starting my freelance journey, which means I bring energy, careful attention to detail, and
-      competitive rates to every project — while building a track record I can be proud of.
-      I care about clean code, fast-loading pages, and building exactly what a client needs, nothing more,
-      nothing less.
-    </p>
-    <div class="skills-grid" style="margin-top:32px;">
-      <div class="skill-card">
-        <p class="name">HTML</p>
-        <div class="bar-track"><div class="bar-fill" style="width:85%;"></div></div>
-        <p class="skill-note">Semantic, accessible markup</p>
-      </div>
-      <div class="skill-card">
-        <p class="name">CSS</p>
-        <div class="bar-track"><div class="bar-fill" style="width:80%;"></div></div>
-        <p class="skill-note">Responsive layouts, flexbox, grid</p>
-      </div>
-      <div class="skill-card">
-        <p class="name">JavaScript</p>
-        <div class="bar-track"><div class="bar-fill" style="width:70%;"></div></div>
-        <p class="skill-note">DOM, interactivity, small apps</p>
-      </div>
-      <div class="skill-card">
-        <p class="name">SQL / Databases</p>
-        <div class="bar-track"><div class="bar-fill" style="width:70%;"></div></div>
-        <p class="skill-note">Schema design, queries, CRUD</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects">
-    <div class="fig">FIG. 03 — SELECTED WORK</div>
-
-    <div class="project-panel">
-      <div class="project-head">
-        <h3>Calculator</h3>
-        <span class="project-tag">HTML / CSS / JS</span>
-      </div>
-      <div class="project-body">
-        <div class="calc">
-          <div class="calc-screen" id="calcScreen">0</div>
-          <div class="calc-keys" id="calcKeys"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-panel">
-      <div class="project-head">
-        <h3>To-do list</h3>
-        <span class="project-tag">HTML / CSS / JS</span>
-      </div>
-      <div class="project-body">
-        <div class="todo-input-row">
-          <input type="text" id="todoInput" placeholder="Add a task">
-          <button id="todoAdd">Add</button>
-        </div>
-        <ul class="todo-list" id="todoList"></ul>
-      </div>
-    </div>
-
-    <div class="project-panel">
-      <div class="project-head">
-        <h3>Quiz app</h3>
-        <span class="project-tag">HTML / CSS / JS</span>
-      </div>
-      <div class="project-body" id="quizBody"></div>
-    </div>
-
-    <div class="project-panel">
-      <div class="project-head">
-        <h3>Student records manager</h3>
-        <span class="project-tag">HTML / CSS / JS / DATABASE DESIGN</span>
-      </div>
-      <div class="project-body">
-        <div class="db-schema">
-          <span class="db-col"><b>id</b> INTEGER PK</span>
-          <span class="db-col"><b>name</b> TEXT</span>
-          <span class="db-col"><b>email</b> TEXT</span>
-          <span class="db-col"><b>score</b> INTEGER</span>
-        </div>
-        <div class="db-form">
-          <input type="text" id="dbName" placeholder="Full name">
-          <input type="email" id="dbEmail" placeholder="Email">
-          <input type="number" id="dbScore" placeholder="Score" min="0" max="100">
-          <button id="dbAdd">Add record</button>
-        </div>
-        <div class="db-search">
-          <input type="text" id="dbSearch" placeholder="Search by name or email">
-        </div>
-        <div class="db-table-wrap">
-          <table class="db-table">
-            <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Score</th><th></th></tr></thead>
-            <tbody id="dbTableBody"></tbody>
-          </table>
-        </div>
-        <p class="db-note">This demo runs entirely in the browser to illustrate table design and CRUD logic. In a real deployment, this same schema and these queries would run against a persistent database such as MySQL or PostgreSQL through a backend API.</p>
-      </div>
-    </div>
-  </section>
-
 </div>
 
-<footer id="contact">
-  <div class="wrap">
-    <div class="fig">FIG. 04 — CONTACT</div>
-    <div class="contact-grid">
-      <div class="contact-item">Email — <a href="mailto:your.email@example.com">your.email@example.com</a></div>
-      <div class="contact-item">GitHub — <a href="https://github.com/your-username" target="_blank" rel="noopener">github.com/your-username</a></div>
-      <div class="contact-item">Fiverr — <a href="#">coming soon</a></div>
+<main class="wrap">
+  <section id="projets">
+    <h2>Projets</h2>
+    <p class="sub">Six logiciels et applications. Ouvrez un projet pour voir ce qu’il fait.</p>
+
+    <details>
+      <summary><span class="n">Système de gestion de l’Hôtel Zombitse Ecolodge</span><span class="k">Gestion de chambres et réservation en ligne</span><span class="t">PHP · MySQL</span></summary>
+      <ul>
+        <li>Panneau d’administration : chambres, clients, réservations, paiements, notifications, historique, utilisateurs et paramètres.</li>
+        <li>Site de réservation : les demandes des visiteurs arrivent côté admin, en attente de validation.</li>
+        <li>Sécurité renforcée avec authentification à deux facteurs (2FA).</li>
+        <li>Réalisé pendant mon stage à Andalamengoka, Sakaraha (août – octobre 2026).</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary><span class="n">MySchool</span><span class="k">Gestion scolaire pour les établissements</span><span class="t">Java 21</span></summary>
+      <ul>
+        <li>Logiciel de bureau complet pour gérer une école, pensé pour un usage de longue durée.</li>
+        <li>Installateur Windows : on l’installe sur les PC de l’école, sans copier de dossier.</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary><span class="n">Gestion de boutique multimédia</span><span class="k">Téléphones, télévisions, radios, ordinateurs</span><span class="t">Java 21 · SQLite</span></summary>
+      <ul>
+        <li>Logiciel Windows avec installateur, base SQLite sans serveur à installer.</li>
+        <li>Accès mobile par une page web sur le Wi-Fi de la boutique.</li>
+        <li>Fenêtre de connexion avec mot de passe et boutons de suppression dans les tableaux.</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary><span class="n">Stock d’artisanat malgache</span><span class="k">Paniers, chapeaux, nattes, sculptures</span><span class="t">Java 21</span></summary>
+      <ul>
+        <li>Interface entièrement en malagasy, connexion protégée par mot de passe.</li>
+        <li>Images d’artisanat par ethnie (foko), par exemple un chapeau tandroy.</li>
+        <li>Installateur Windows.</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary><span class="n">Gestion de bibliothèque</span><span class="k">Livres, membres, emprunts et retours</span><span class="t">Java Swing</span></summary>
+      <ul>
+        <li>Tableau de bord avec statistiques et interface soignée.</li>
+        <li>Projet de formation, refait en JDK 21 avec installateur.</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary><span class="n">Application mobile de la chorale IMIFI</span><span class="k">Chorale de l’ÉMIT, Android et iPhone (en développement)</span><span class="t">Flutter · Firebase</span></summary>
+      <ul>
+        <li>Les membres consultent paroles, annonces, réunions, actualités et liste des membres, sans créer de compte.</li>
+        <li>Espace administrateur protégé par mot de passe, invisible pour les membres.</li>
+      </ul>
+    </details>
+  </section>
+
+  <section id="parcours">
+    <h2>Parcours</h2>
+    <p class="sub">Formation, stage et test de logiciels.</p>
+    <div class="xp">
+      <div>
+        <h3>Stagiaire développeur web et réceptionniste, Hôtel Zombitse Ecolodge</h3>
+        <p class="when">Août – octobre 2026</p>
+        <p>Développement du système de gestion et accueil des clients de l’hôtel.</p>
+      </div>
+      <div>
+        <h3>Testeur, Tru My UI</h3>
+        <p class="when">En cours</p>
+        <p>Test de sites web et d’applications, signalement des problèmes et retours sur l’expérience utilisateur.</p>
+      </div>
+      <div>
+        <h3>Licence 3 Informatique, ÉMIT</h3>
+        <p class="when">Université de Fianarantsoa, en cours</p>
+        <p>Réseaux, web avancé, intelligence artificielle, génie logiciel, UX/UI, développement mobile.</p>
+      </div>
     </div>
-    <p class="foot-note">Replace the placeholder links above with your real email, GitHub and freelance profile links once they're ready.</p>
+  </section>
+
+  <section id="competences">
+    <h2>Compétences</h2>
+    <div class="skills">
+      <div><h3>Web</h3><p>HTML, CSS, JavaScript, PHP, MySQL</p></div>
+      <div><h3>Logiciels de bureau</h3><p>Java (Swing, JDK 21), SQLite, installateurs Windows</p></div>
+      <div><h3>Mobile</h3><p>Flutter, Firebase</p></div>
+      <div><h3>Langues</h3><p>Malagasy et français (lu, écrit, parlé), anglais (lu, écrit)</p></div>
+    </div>
+  </section>
+</main>
+
+<div class="contact" id="contact">
+  <div class="wrap">
+    <h2>Travaillons ensemble</h2>
+    <p>Disponible pour un stage, une mission freelance ou un poste à distance depuis Madagascar.</p>
+    <div class="lines">
+      <span>Email : <a href="mailto:danielraheriniaina.web@gmail.com">danielraheriniaina.web@gmail.com</a></span>
+      <span>Téléphone : <a href="tel:+261383779633">038 37 796 33</a></span>
+      <span>GitHub : <a href="https://github.com/danielrah-dev">github.com/danielrah-dev</a></span>
+    </div>
   </div>
-</footer>
-
-<script>
-// Hero typing effect
-const typerEl = document.getElementById('typer');
-const previewEl = document.getElementById('previewOut');
-const codeLine = '<h1>Hello, I\\'m Daniel</h1>';
-let ci = 0;
-function typeStep(){
-  if(ci <= codeLine.length){
-    typerEl.innerHTML = escapeHtml(codeLine.slice(0, ci)) + '<span class="cursor-blink"></span>';
-    previewEl.textContent = codeLine.slice(0, ci).replace(/<\/?h1>/g,'');
-    ci++;
-    setTimeout(typeStep, 55);
-  } else {
-    setTimeout(()=>{ ci = 0; typeStep(); }, 2200);
-  }
-}
-function escapeHtml(str){
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-typeStep();
-
-// Calculator
-const calcScreen = document.getElementById('calcScreen');
-const calcKeys = document.getElementById('calcKeys');
-const keys = ['7','8','9','/','4','5','6','*','1','2','3','-','0','.','C','+','='];
-let calcExpr = '';
-keys.forEach(k=>{
-  const b = document.createElement('button');
-  b.textContent = k;
-  if(['/','*','-','+'].includes(k)) b.classList.add('op');
-  if(k === '=') b.classList.add('eq');
-  b.addEventListener('click', ()=>{
-    if(k === 'C'){ calcExpr = ''; }
-    else if(k === '='){
-      try{
-        if(/^[0-9+\-*/.\s]+$/.test(calcExpr)){
-          const result = Function('"use strict";return (' + calcExpr + ')')();
-          calcExpr = String(Math.round(result * 1e6) / 1e6);
-        }
-      }catch(e){ calcExpr = 'Error'; }
-    } else {
-      calcExpr += k;
-    }
-    calcScreen.textContent = calcExpr || '0';
-  });
-  calcKeys.appendChild(b);
-});
-
-// Todo list
-const todoInput = document.getElementById('todoInput');
-const todoAdd = document.getElementById('todoAdd');
-const todoList = document.getElementById('todoList');
-let tasks = [
-  {text:'Create a GitHub account', done:false},
-  {text:'Build 2-3 small demo projects', done:false},
-  {text:'Set up a Fiverr or Upwork profile', done:false}
-];
-function renderTodos(){
-  todoList.innerHTML = '';
-  tasks.forEach((t, i)=>{
-    const li = document.createElement('li');
-    if(t.done) li.classList.add('done');
-    li.innerHTML = '<input type="checkbox" ' + (t.done ? 'checked' : '') + '><span class="txt"></span><button aria-label="Delete task">&times;</button>';
-    li.querySelector('.txt').textContent = t.text;
-    li.querySelector('input').addEventListener('change', ()=>{ tasks[i].done = !tasks[i].done; renderTodos(); });
-    li.querySelector('button').addEventListener('click', ()=>{ tasks.splice(i,1); renderTodos(); });
-    todoList.appendChild(li);
-  });
-}
-function addTodo(){
-  const v = todoInput.value.trim();
-  if(v){ tasks.push({text:v, done:false}); todoInput.value=''; renderTodos(); }
-}
-todoAdd.addEventListener('click', addTodo);
-todoInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') addTodo(); });
-renderTodos();
-
-// Quiz
-const quizData = [
-  { q:'Which tag is used to create a hyperlink in HTML?', opts:['<link>','<a>','<href>','<url>'], correct:1 },
-  { q:'Which CSS property changes text color?', opts:['font-color','text-color','color','fg-color'], correct:2 },
-  { q:'Which symbol is used for comments in JavaScript?', opts:['<!-- -->','//','#','**'], correct:1 }
-];
-let qi = 0, score = 0;
-const quizBody = document.getElementById('quizBody');
-function renderQuiz(){
-  if(qi >= quizData.length){
-    quizBody.innerHTML = '<p class="quiz-status">Score: ' + score + ' / ' + quizData.length + '</p><button class="btn quiz-next" id="restartQuiz">Restart quiz</button>';
-    document.getElementById('restartQuiz').addEventListener('click', ()=>{ qi=0; score=0; renderQuiz(); });
-    return;
-  }
-  const item = quizData[qi];
-  quizBody.innerHTML = '<p class="quiz-status">Question ' + (qi+1) + ' of ' + quizData.length + '</p><p class="quiz-q"></p><div class="quiz-opts"></div>';
-  quizBody.querySelector('.quiz-q').textContent = item.q;
-  const optsDiv = quizBody.querySelector('.quiz-opts');
-  item.opts.forEach((opt, idx)=>{
-    const b = document.createElement('button');
-    b.textContent = opt;
-    b.addEventListener('click', ()=>{
-      const buttons = optsDiv.querySelectorAll('button');
-      buttons.forEach(bb=>bb.disabled = true);
-      if(idx === item.correct){ b.classList.add('correct'); score++; }
-      else { b.classList.add('wrong'); buttons[item.correct].classList.add('correct'); }
-      const nextBtn = document.createElement('button');
-      nextBtn.textContent = (qi === quizData.length-1) ? 'See results' : 'Next question';
-      nextBtn.className = 'btn quiz-next';
-      nextBtn.addEventListener('click', ()=>{ qi++; renderQuiz(); });
-      quizBody.appendChild(nextBtn);
-    });
-    optsDiv.appendChild(b);
-  });
-}
-renderQuiz();
-
-// Student records database demo
-let dbRecords = [
-  {id:1, name:'Fara Andriamalala', email:'fara.a@example.com', score:88},
-  {id:2, name:'Tojo Rakoto', email:'tojo.r@example.com', score:74},
-  {id:3, name:'Miora Rasoanaivo', email:'miora.r@example.com', score:95}
-];
-let dbNextId = 4;
-const dbTableBody = document.getElementById('dbTableBody');
-const dbSearch = document.getElementById('dbSearch');
-
-function renderDbTable(){
-  const term = dbSearch.value.trim().toLowerCase();
-  const rows = dbRecords.filter(r =>
-    !term || r.name.toLowerCase().includes(term) || r.email.toLowerCase().includes(term)
-  );
-  dbTableBody.innerHTML = '';
-  if(rows.length === 0){
-    const tr = document.createElement('tr');
-    tr.innerHTML = '<td colspan="5" style="color:var(--paper-dim);text-align:center;padding:16px 0;">No matching records</td>';
-    dbTableBody.appendChild(tr);
-    return;
-  }
-  rows.forEach(r=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML =
-      '<td>' + r.id + '</td>' +
-      '<td></td>' +
-      '<td></td>' +
-      '<td class="score">' + r.score + '</td>' +
-      '<td><button aria-label="Delete record">&times;</button></td>';
-    tr.children[1].textContent = r.name;
-    tr.children[2].textContent = r.email;
-    tr.querySelector('button').addEventListener('click', ()=>{
-      dbRecords = dbRecords.filter(x => x.id !== r.id);
-      renderDbTable();
-    });
-    dbTableBody.appendChild(tr);
-  });
-}
-document.getElementById('dbAdd').addEventListener('click', ()=>{
-  const name = document.getElementById('dbName').value.trim();
-  const email = document.getElementById('dbEmail').value.trim();
-  const score = parseInt(document.getElementById('dbScore').value, 10);
-  if(!name || !email || isNaN(score)) return;
-  dbRecords.push({id: dbNextId++, name, email, score: Math.max(0, Math.min(100, score))});
-  document.getElementById('dbName').value = '';
-  document.getElementById('dbEmail').value = '';
-  document.getElementById('dbScore').value = '';
-  renderDbTable();
-});
-dbSearch.addEventListener('input', renderDbTable);
-renderDbTable();
-</script>
-
+</div>
+<footer><div class="wrap">© 2026 Daniel Raheriniaina</div></footer>
 </body>
 </html>
